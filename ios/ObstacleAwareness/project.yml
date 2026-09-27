@@ -1,0 +1,57 @@
+name: ObstacleAwareness
+options:
+  bundleIdPrefix: com.albinshajan
+
+targets:
+  ObstacleAwareness:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources
+    info:
+      path: Sources/Info.plist
+      properties:
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSCameraUsageDescription: "Camera and LiDAR are used to capture research frames for the obstacle-distance ground-truth dataset."
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.albinshajan.obstacleawareness
+        DEVELOPMENT_TEAM: YOUR_TEAM_ID
+        CODE_SIGN_STYLE: Automatic
+        MARKETING_VERSION: "0.1"
+        CURRENT_PROJECT_VERSION: "1"
+        TARGETED_DEVICE_FAMILY: "1"
+
+  ObstacleAwarenessUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: UITests
+    dependencies:
+      - target: ObstacleAwareness
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.albinshajan.obstacleawareness.uitests
+        DEVELOPMENT_TEAM: YOUR_TEAM_ID
+        CODE_SIGN_STYLE: Automatic
+        TEST_TARGET_NAME: ObstacleAwareness
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  ObstacleAwareness:
+    build:
+      targets:
+        ObstacleAwareness: all
+        ObstacleAwarenessUITests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - ObstacleAwarenessUITests

@@ -1,0 +1,19 @@
+% Included by tools/build_thesis.sh for the PDF build.
+% Every caption in the manuscript already carries its own number
+% ("Table 3.1: ...", "Figure 4.2: ..."), which the whole text cross-references.
+% LaTeX's automatic "Table 1:" prefix would double it, so it is suppressed; the
+% captions still reach the list of tables and the list of figures.
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty,listformat=empty}
+\captionsetup[table]{labelformat=empty,listformat=empty}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{pdfpages}
+% Chapter headings: the manuscript's headings carry "Chapter 1 — ..." in their
+% own text, so the report class's "Chapter 1" label line is not wanted.
+\makeatletter
+\def\@makeschapterhead#1{\vspace*{10pt}{\parindent \z@ \raggedright \normalfont
+  \interlinepenalty\@M \Huge \bfseries #1\par\nobreak\vskip 30\p@}}
+\makeatother
+% Long URLs in the bibliography break at slashes rather than overflowing.
+\usepackage{xurl}

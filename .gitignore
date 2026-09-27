@@ -1,0 +1,21 @@
+data/
+*.mlpackage
+*.pt
+__pycache__/
+.DS_Store
+*.pyc
+
+# participant study data — never committed
+results/participant_*.csv
+results/*_session_*.csv
+
+# Xcode
+ios/ObstacleAwareness/ObstacleAwareness.xcodeproj/xcuserdata/
+ios/ObstacleAwareness/ObstacleAwareness.xcodeproj/project.xcworkspace/xcuserdata/
+DerivedData/
+
+# assembled thesis output -- rebuild with tools/build_thesis.sh
+build/
+
+# personal strings removed from the public copy -- never commit
+tools/public_redactions.local.tsv

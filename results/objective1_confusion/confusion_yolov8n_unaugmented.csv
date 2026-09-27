@@ -1,0 +1,14 @@
+true \ predicted,person,chair,table,door,door_glass,window,stairs,pole,handrail,wall,low_obstacle,other,background
+person,4,0,0,0,0,0,0,0,0,0,0,0,13
+chair,1,5,1,1,0,0,0,0,0,0,1,0,66
+table,0,1,8,0,0,0,0,0,0,0,1,0,19
+door,0,0,0,2,0,0,0,0,0,0,0,0,6
+door_glass,0,0,0,0,0,0,0,0,0,0,0,0,0
+window,0,0,0,0,0,14,0,0,0,0,0,0,31
+stairs,0,0,0,0,0,0,4,0,0,0,0,0,7
+pole,0,0,0,0,0,0,0,0,0,0,0,0,0
+handrail,0,0,0,0,0,0,0,0,0,0,0,0,0
+wall,0,0,0,0,0,0,1,0,0,3,0,0,3
+low_obstacle,2,0,0,0,0,0,0,0,0,0,12,0,76
+other,0,0,0,0,0,0,0,0,0,0,0,0,0
+background,8,6,7,10,0,30,2,0,0,2,13,0,0

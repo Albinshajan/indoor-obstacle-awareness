@@ -1,0 +1,17 @@
+subset,model,metric,point,ci_low,ci_high,scenes
+all,colab_run2,micro_f1,0.1243,0.0844,0.1676,107
+all,baseline,micro_f1,0.1336,0.0937,0.1753,107
+all,mosaic,micro_f1,0.1959,0.1546,0.2407,107
+all,relabel,micro_f1,0.1906,0.1426,0.2394,107
+all,coco,micro_f1,0.1804,0.1364,0.2275,107
+all,aib,micro_f1,0.2929,0.2357,0.3571,107
+all,mosaic_relabel,micro_f1,0.2338,0.1906,0.2800,107
+all,full,micro_f1,0.3551,0.3037,0.4068,107
+all,colab_run2,macro_f1,0.0961,0.0642,0.1307,107
+all,baseline,macro_f1,0.1105,0.0787,0.1453,107
+all,mosaic,macro_f1,0.1551,0.1228,0.1960,107
+all,relabel,macro_f1,0.1410,0.1073,0.1822,107
+all,coco,macro_f1,0.1263,0.0931,0.1633,107
+all,aib,macro_f1,0.2735,0.2103,0.3299,107
+all,mosaic_relabel,macro_f1,0.1754,0.1415,0.2165,107
+all,full,macro_f1,0.2916,0.2459,0.3478,107

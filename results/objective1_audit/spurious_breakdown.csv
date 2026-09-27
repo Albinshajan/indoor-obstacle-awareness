@@ -1,0 +1,10 @@
+predicted_class,duplicate,other_class,partial_same,partial_other,unannotated,total
+person,1,9,30,41,73,154
+chair,2,4,12,28,13,59
+table,5,8,17,19,15,64
+door,1,13,6,9,26,55
+window,0,9,66,12,89,176
+stairs,0,3,3,8,11,25
+wall,0,3,13,14,5,35
+low_obstacle,2,15,22,15,21,75
+ALL,11,64,169,146,253,643

@@ -1,0 +1,284 @@
+<title>Indoor Obstacle Awareness</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  /* Deliberately single-look: this is a printed A5 sheet, read at arm's length.
+     Every colour is painted explicitly so the page holds on any host ground.
+     To print at another A size, change only the @page rule at the bottom --
+     every dimension here is relative to the sheet's width, but the text volume
+     is tuned for A5 and would be sparse blown up to A1. */
+  :root{
+    --ink:#131a21; --ink-2:#3c4750; --ink-3:#69757e;
+    --paper:#fbfaf7; --panel:#f1efe9; --rule:#c5ced3;
+    --depth:#14636d; --depth-pale:#9dbfc3; --depth-wash:#e4eded;
+    --urgency:#bf3d10; --urgency-wash:#f7e5dd; --amber:#8a6108;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+  img{max-width:100%;}
+
+  .stage{padding:16px;background:var(--paper);}
+  .poster{
+    container-type:inline-size;
+    width:100%; max-width:760px; margin:0 auto;
+    aspect-ratio:148/210;
+    background:var(--paper);
+    display:grid; grid-template-rows:auto auto 1fr auto;
+    border:1px solid var(--rule);
+  }
+  /* Type scale relative to sheet width, so screen and print agree.
+     100cqi = 148 mm, so 1cqi = 1.48 mm. Body at 2cqi is ~8.4 pt. */
+  .poster{ --t-hero:4.9cqi; --t-sub:2.02cqi; --t-meta:1.62cqi;
+           --t-h:2.52cqi; --t-body:1.98cqi; --t-small:1.70cqi;
+           --t-fig:5.2cqi; --t-cap:1.52cqi; }
+
+  /* ---------- header ---------- */
+  header{padding:2.2cqi 3.4cqi 1.8cqi;border-bottom:0.42cqi solid var(--ink);}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:var(--t-meta);
+    letter-spacing:0.15em;text-transform:uppercase;color:var(--depth);font-weight:600;}
+  h1{font-family:Archivo,sans-serif;font-weight:800;font-size:var(--t-hero);
+    line-height:0.99;letter-spacing:-0.023em;margin:1cqi 0 0;text-wrap:balance;}
+  .sub{font-size:var(--t-sub);line-height:1.2;color:var(--ink-2);margin:1.05cqi 0 0;
+    font-weight:400;max-width:92%;}
+  .byline{display:flex;flex-wrap:wrap;gap:0 3cqi;margin-top:1.7cqi;
+    font-family:"IBM Plex Mono",monospace;font-size:var(--t-meta);color:var(--ink-2);}
+  .byline b{color:var(--ink);font-weight:600;}
+  .scope{margin-top:1.6cqi;padding:1.1cqi 1.5cqi;background:var(--urgency-wash);
+    border-left:0.62cqi solid var(--urgency);font-size:var(--t-small);line-height:1.32;}
+  .scope strong{color:var(--urgency);font-weight:600;}
+
+  /* ---------- headline figures ---------- */
+  .figures{display:grid;grid-template-columns:repeat(4,1fr);
+    border-bottom:0.2cqi solid var(--rule);background:var(--depth-wash);}
+  .fig{padding:1.45cqi 1.55cqi;border-right:0.2cqi solid var(--depth-pale);}
+  .fig:last-child{border-right:none;}
+  .fig .n{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:var(--t-fig);
+    line-height:0.88;color:var(--depth);letter-spacing:-0.035em;font-variant-numeric:tabular-nums;}
+  .fig .n span{font-size:0.4em;font-weight:500;letter-spacing:0;}
+  .fig .l{margin-top:0.75cqi;font-size:var(--t-cap);line-height:1.26;color:var(--ink-2);}
+  .fig .l b{color:var(--ink);font-weight:600;}
+
+  /* ---------- two reading columns ---------- */
+  .cols{display:grid;grid-template-columns:1fr 1fr;}
+  .col{padding:1.8cqi 2.7cqi 1.4cqi;border-right:0.2cqi solid var(--rule);
+    display:flex;flex-direction:column;gap:1.4cqi;}
+  .col:last-child{border-right:none;padding-right:3.6cqi;}
+  .col:first-child{padding-left:3.6cqi;}
+
+  h2{font-family:Archivo,sans-serif;font-weight:700;font-size:var(--t-h);
+    line-height:1.09;margin:0 0 0.72cqi;letter-spacing:-0.014em;text-wrap:balance;}
+  h2 .k{display:block;font-family:"IBM Plex Mono",monospace;font-size:0.6em;
+    font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--depth);margin-bottom:0.65cqi;}
+  p{font-size:var(--t-body);line-height:1.24;margin:0 0 0.7cqi;color:var(--ink-2);}
+  p:last-child{margin-bottom:0;}
+  p strong,li strong{color:var(--ink);font-weight:600;}
+  .mono{font-family:"IBM Plex Mono",monospace;font-size:0.92em;}
+  .caption{font-size:var(--t-cap);line-height:1.26;color:var(--ink-3);margin:0.9cqi 0 0;}
+  .pull{font-family:Archivo,sans-serif;font-weight:600;font-size:2.2cqi;
+    line-height:1.18;color:var(--ink);border-top:0.28cqi solid var(--ink);
+    padding:0.85cqi 0 0;text-wrap:balance;}
+
+  /* ---------- error chart, drawn to scale ---------- */
+  .bar-row{display:grid;grid-template-columns:15cqi 1fr 11.5cqi;align-items:center;
+    gap:1.2cqi;margin-bottom:0.7cqi;}
+  .bar-lab{font-family:"IBM Plex Mono",monospace;font-size:var(--t-cap);
+    text-align:right;line-height:1.14;color:var(--ink-2);}
+  .bar-lab b{display:block;color:var(--ink);font-weight:600;}
+  .track{height:2.9cqi;background:var(--panel);}
+  .bar{height:100%;background:var(--depth);}
+  .bar.mono-arm{background:var(--urgency);}
+  .bar.best{background:var(--depth-pale);}
+  .bar-val{font-family:"IBM Plex Mono",monospace;font-size:var(--t-cap);
+    font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .axis{display:grid;grid-template-columns:15cqi 1fr 11.5cqi;gap:1.3cqi;}
+  .ticks{position:relative;height:2.0cqi;border-top:0.2cqi solid var(--rule);}
+  .tick{position:absolute;top:0;font-family:"IBM Plex Mono",monospace;
+    font-size:1.42cqi;color:var(--ink-3);transform:translateX(-50%);padding-top:0.5cqi;}
+  .tick::before{content:"";position:absolute;top:0;left:50%;width:0.2cqi;
+    height:0.75cqi;background:var(--rule);}
+
+  /* ---------- prototype pipeline + urgency encoding ---------- */
+  .pipe{display:flex;flex-wrap:wrap;align-items:center;gap:0.7cqi;
+    font-family:"IBM Plex Mono",monospace;font-size:1.56cqi;line-height:1.1;}
+  .pipe i{background:var(--depth-wash);color:var(--depth);padding:0.75cqi 0.9cqi;
+    font-style:normal;font-weight:600;}
+  .pipe s{color:var(--ink-3);text-decoration:none;}
+  .grad-bar{height:2.9cqi;margin-top:1.0cqi;background:linear-gradient(90deg,
+      var(--depth-pale) 0%, var(--depth) 34%, var(--amber) 62%, var(--urgency) 100%);}
+  .grad-bands{display:grid;grid-template-columns:12fr 33fr 25fr 30fr;
+    font-family:"IBM Plex Mono",monospace;font-size:1.3cqi;
+    text-align:center;color:var(--ink-2);}
+  .grad-bands div{padding:0.45cqi 0.15cqi;border-right:0.2cqi solid var(--rule);
+    border-bottom:0.2cqi solid var(--rule);}
+  .grad-bands div:last-child{border-right:none;}
+  .grad-bands b{display:block;color:var(--ink);font-weight:600;
+    text-transform:uppercase;letter-spacing:0.06em;}
+  .params{margin-top:0.9cqi;}
+  .params div{display:grid;grid-template-columns:15cqi 1fr;gap:1.1cqi;
+    padding:0.3cqi 0;border-bottom:0.2cqi solid var(--rule);line-height:1.2;
+    font-size:var(--t-cap);}
+  .params div:last-child{border-bottom:none;}
+  .params k{font-family:"IBM Plex Mono",monospace;color:var(--ink-3);}
+  .params v{font-family:"IBM Plex Mono",monospace;color:var(--ink);font-weight:500;}
+
+  /* ---------- footer ---------- */
+  footer{border-top:0.42cqi solid var(--ink);display:grid;grid-template-columns:1fr 1fr;}
+  .fcell{padding:1.35cqi 2.7cqi;}
+  .fcell:first-child{padding-left:3.6cqi;border-right:0.2cqi solid var(--rule);}
+  .fcell:last-child{padding-right:3.6cqi;background:var(--panel);}
+  .fcell h3{font-family:"IBM Plex Mono",monospace;font-size:1.46cqi;font-weight:600;
+    letter-spacing:0.12em;text-transform:uppercase;color:var(--depth);margin:0 0 0.85cqi;}
+  .fcell p{font-size:var(--t-cap);line-height:1.26;margin:0 0 0.55cqi;}
+  .fcell p:last-child{margin-bottom:0;}
+
+  /* ---------- print: exact A5 ---------- */
+  @page{size:148mm 210mm;margin:0;}
+  @media print{
+    .stage{padding:0;}
+    .poster{max-width:none;width:148mm;min-height:210mm;height:auto;aspect-ratio:auto;border:none;}
+  }
+</style>
+
+<div class="stage">
+<div class="poster">
+
+  <header>
+    <div class="eyebrow">MSc Data Science &amp; AI · CST4275 · 2026</div>
+    <h1>A Smartphone-Based Prototype for Indoor Obstacle Awareness</h1>
+    <p class="sub">Real-time object detection, distance estimation and audio-haptic
+      feedback for blind and visually impaired users</p>
+    <div class="byline">
+      <span><b>Albin Shajan</b> · M01097740</span>
+      <span>Supervisor: <b>Dr Ikram Ur Rehman</b></span>
+      <span>Middlesex University Dubai</span>
+    </div>
+    <div class="scope">
+      <strong>Stated narrowly, on purpose.</strong> Obstacle <em>awareness</em>, not
+      navigation — a supplement to the long cane, never a replacement. No participant data,
+      so <strong>nothing here is usability evidence</strong>.
+    </div>
+  </header>
+
+  <div class="figures">
+    <div class="fig">
+      <div class="n">0.188<span> m</span></div>
+      <div class="l"><b>LiDAR distance error</b> against a tape measure · 16.1% MAPE</div>
+    </div>
+    <div class="fig">
+      <div class="n">4.3<span>%</span></div>
+      <div class="l"><b>Error on doors</b>, the strongest class · 0.077 m</div>
+    </div>
+    <div class="fig">
+      <div class="n">37<span>%</span></div>
+      <div class="l"><b>Frames where the detector found the obstacle</b> at all</div>
+    </div>
+    <div class="fig">
+      <div class="n">13.3<span> ms</span></div>
+      <div class="l"><b>Full pipeline on device</b> · A15, 30 fps sustained</div>
+    </div>
+  </div>
+
+  <div class="cols">
+
+    <div class="col">
+      <section>
+        <h2><span class="k">The gap</span>The cane is excellent, and blind in three specific ways</h2>
+        <p>It detects obstacles <strong>only on contact</strong>, says nothing about
+          <strong>what</strong> they are, and covers <strong>nothing above sweep
+          height</strong>. Nor has the field closed it: the closest comparable system
+          reports distance accuracy as a <strong>boolean</strong>.</p>
+      </section>
+
+      <section>
+        <h2><span class="k">Result 1</span>The accuracy–latency trade-off did not appear</h2>
+        <p><strong>YOLO26n won every axis</strong>; all three candidates exceeded
+          <strong>75 fps</strong> on an A15. And <strong>43% of pipeline latency is not
+          inference</strong> — buffer conversion and resizing cost nearly as much.</p>
+      </section>
+
+      <section>
+        <h2><span class="k">Result 3 · unplanned</span>Detection, not depth, was the bottleneck</h2>
+        <p>A usable detection appeared in only <strong>37% of 102 frames</strong>;
+          <span class="mono">pole</span> has <strong>zero training instances</strong> and
+          the taxonomy's second-highest hazard weight.</p>
+        <p>A second corpus found the object in <strong>37 of 102</strong> frames against
+          12 — but boxed <strong>empty floor</strong> as <span class="mono">door</span>.</p>
+        <div class="pull">The sensing is good enough. The detection is not yet.</div>
+      </section>
+    </div>
+
+    <div class="col">
+      <section>
+        <h2><span class="k">Result 2 · the contribution</span>Distance error against physical ground truth</h2>
+        <div class="bar-row">
+          <div class="bar-lab"><b>LiDAR</b>doors only</div>
+          <div class="track"><div class="bar best" style="width:5.9%"></div></div>
+          <div class="bar-val">0.077 m</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-lab"><b>LiDAR</b>all classes</div>
+          <div class="track"><div class="bar" style="width:14.5%"></div></div>
+          <div class="bar-val">0.188 m</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-lab"><b>Monocular</b>DAv2-Metric-S</div>
+          <div class="track"><div class="bar mono-arm" style="width:93.9%"></div></div>
+          <div class="bar-val">1.221 m</div>
+        </div>
+        <div class="axis">
+          <div></div>
+          <div class="ticks">
+            <span class="tick" style="left:0%">0</span>
+            <span class="tick" style="left:38.5%">0.50</span>
+            <span class="tick" style="left:76.9%">1.00</span>
+          </div>
+          <div></div>
+        </div>
+        <p>Designed as a trade-off — LiDAR accurate, monocular deployable anywhere. It did
+          not resolve that way: monocular error was <strong>6.5× larger</strong>, so the
+          <strong>"smartphone-only" claim is withdrawn</strong>.</p>
+      </section>
+
+      <section>
+        <h2><span class="k">The prototype</span>Urgency, encoded three ways at once</h2>
+        <div class="grad-bar"></div>
+        <div class="grad-bands">
+          <div><b>clear</b>&lt;0.12</div>
+          <div><b>ahead</b>0.12–0.45</div>
+          <div><b>close</b>0.45–0.70</div>
+          <div><b>stop</b>0.70–1.0</div>
+        </div>
+        <div class="params">
+          <div><k>intensity</k><v>0.25 → 1.00</v></div>
+          <div><k>sharpness</k><v>0.20 → 1.00</v></div>
+          <div><k>pulse rate</k><v>1.1 → 7.1 Hz</v></div>
+          <div><k>earcon</k><v>2.0 s → 0.45 s, panned</v></div>
+        </div>
+        <p class="caption">Median depth over each box's <strong>lower third</strong> feeds
+          bearing, closing rate and time-to-contact into a hazard-weighted urgency score,
+          gated by 3-of-5 confirmation. Derived layer: <strong>0.066 ms</strong>/frame.</p>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <div class="fcell">
+      <h3>Stated limitations</h3>
+      <p><strong>RQ3 is unanswered.</strong> Four taxonomy classes have no training
+        instances. The urgency weighting is <strong>unvalidated</strong> — no user has
+        confirmed that what it scores as urgent feels so. Dim lighting untested.</p>
+    </div>
+    <div class="fcell">
+      <h3>What follows</h3>
+      <p>Run the evaluation — approval exists and is unused, and the three feedback
+        conditions are already switchable. Obtain a source carrying
+        <span class="mono">pole</span> and retrain. Establish what "fast enough" means for a
+        walking user.</p>
+      <p style="color:var(--ink-3)">Every figure traces to a committed artefact. iPhone 13
+        Pro Max, A15.</p>
+    </div>
+  </footer>
+
+</div>
+</div>

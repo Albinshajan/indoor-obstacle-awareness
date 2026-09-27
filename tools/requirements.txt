@@ -1,0 +1,11 @@
+ultralytics
+coremltools
+torch
+torchvision
+numpy
+pandas
+matplotlib
+pillow
+pyyaml
+h5py
+scipy

@@ -1,0 +1,13 @@
+id,image,class,conf,x1,y1,x2,y2,verdict,note,rater
+1,aib__5bd7f210fa544a9f.jpg,person,0.954,18.0,81.2,635.8,635.1,wrong,one box over two people,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+2,aib__0be48767aff43b0b.jpg,person,0.899,763.2,274.9,865.7,570.7,correct,,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+3,aib__0e3bcb67142341af.jpg,person,0.899,541.3,421.9,636.2,673.0,correct,,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+4,aib__009ae3d6fd97c1fc.jpg,person,0.791,683.1,293.5,753.1,359.6,correct,,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+5,aib__0e3bcb67142341af.jpg,person,0.868,770.1,422.4,815.8,577.2,correct,,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+6,aib__094c8f781c8411e0.jpg,person,0.945,817.6,54.7,1023.7,672.6,correct,,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+7,aib__ba951e65a53acadf.jpg,chair,0.705,477.8,326.8,548.7,492.9,correct,,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+8,aib__e5eb853c477f4ba7.jpg,chair,0.728,0.4,358.7,235.6,767.1,wrong,"a green cushion, not a chair","Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+9,aib__0d67358e7358ee00.jpg,chair,0.598,983.1,208.8,1023.1,291.0,correct,,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+10,aib__933834772364f09f.jpg,chair,0.854,461.8,595.1,610.9,839.6,correct,,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+11,aib__007a4e97abc192b9.jpg,table,0.662,251.0,904.1,500.4,1023.5,wrong,base of a vending machine or counter,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
+12,aib__02719a20199eaf3f.jpg,table,0.810,1.9,345.3,385.5,451.2,correct,,"Albin Shajan, confirmed 2026-09-26 (sheets reviewed one by one)"
